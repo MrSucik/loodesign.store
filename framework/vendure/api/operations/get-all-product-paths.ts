@@ -13,10 +13,7 @@ export default function getAllProductPathsOperation({
 }: OperationContext<Provider>) {
   async function getAllProductPaths<
     T extends GetAllProductPathsOperation
-  >(opts?: {
-    variables?: T['variables']
-    config?: any
-  }): Promise<T['data']>
+  >(opts?: { variables?: T['variables']; config?: any }): Promise<T['data']>
 
   async function getAllProductPaths<T extends GetAllProductPathsOperation>(
     opts: {

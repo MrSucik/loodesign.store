@@ -3,9 +3,8 @@ import { OperationContext } from '@commerce/api/operations'
 
 export type Page = any
 
-export type GetAllPagesResult<
-  T extends { pages: any[] } = { pages: Page[] }
-> = T
+export type GetAllPagesResult<T extends { pages: any[] } = { pages: Page[] }> =
+  T
 
 export default function getAllPagesOperation({
   commerce,
