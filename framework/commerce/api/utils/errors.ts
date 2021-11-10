@@ -1,5 +1,4 @@
-import type { Response } from '@vercel/fetch'
-
+import { Response } from 'node-fetch'
 export class CommerceAPIError extends Error {
   status: number
   res: Response

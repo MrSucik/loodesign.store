@@ -2,11 +2,7 @@
   "compilerOptions": {
     "baseUrl": ".",
     "target": "esnext",
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
+    "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
@@ -20,42 +16,18 @@
     "jsx": "preserve",
     "incremental": true,
     "paths": {
-      "@lib/*": [
-        "lib/*"
-      ],
-      "@utils/*": [
-        "utils/*"
-      ],
-      "@config/*": [
-        "config/*"
-      ],
-      "@assets/*": [
-        "assets/*"
-      ],
-      "@components/*": [
-        "components/*"
-      ],
-      "@commerce": [
-        "framework/commerce"
-      ],
-      "@commerce/*": [
-        "framework/commerce/*"
-      ],
-      "@framework": [
-        "framework/local"
-      ],
-      "@framework/*": [
-        "framework/local/*"
-      ]
+      "@lib/*": ["lib/*"],
+      "@utils/*": ["utils/*"],
+      "@config/*": ["config/*"],
+      "@assets/*": ["assets/*"],
+      "@components/*": ["components/*"],
+      "@commerce": ["framework/commerce"],
+      "@commerce/*": ["framework/commerce/*"],
+      "@framework": ["framework/vendure"],
+      "@framework/*": ["framework/vendure/*"]
     }
   },
-  "include": [
-    "next-env.d.ts",
-    "**/*.d.ts",
-    "**/*.ts",
-    "**/*.tsx",
-    "**/*.js"
-  ],
+  "include": ["next-env.d.ts", "**/*.d.ts", "**/*.ts", "**/*.tsx", "**/*.js"],
   "exclude": [
     "node_modules",
     "./framework/bigcommerce",

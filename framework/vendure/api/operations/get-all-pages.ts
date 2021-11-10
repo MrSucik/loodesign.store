@@ -1,6 +1,5 @@
 import { VendureConfig } from '../'
 import { OperationContext } from '@commerce/api/operations'
-import { Provider } from '../../../bigcommerce/api'
 
 export type Page = any
 
@@ -10,7 +9,7 @@ export type GetAllPagesResult<
 
 export default function getAllPagesOperation({
   commerce,
-}: OperationContext<Provider>) {
+}: OperationContext<any>) {
   async function getAllPages(opts?: {
     config?: Partial<VendureConfig>
     preview?: boolean

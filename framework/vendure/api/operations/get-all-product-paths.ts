@@ -3,7 +3,6 @@ import type { GetAllProductPathsQuery } from '../../schema'
 import { Provider } from '../index'
 import { getAllProductPathsQuery } from '../../utils/queries/get-all-product-paths-query'
 import { GetAllProductPathsOperation } from '@commerce/types/product'
-import { BigcommerceConfig } from '../../../bigcommerce/api'
 
 export type GetAllProductPathsResult = {
   products: Array<{ node: { path: string } }>
@@ -16,13 +15,13 @@ export default function getAllProductPathsOperation({
     T extends GetAllProductPathsOperation
   >(opts?: {
     variables?: T['variables']
-    config?: BigcommerceConfig
+    config?: any
   }): Promise<T['data']>
 
   async function getAllProductPaths<T extends GetAllProductPathsOperation>(
     opts: {
       variables?: T['variables']
-      config?: BigcommerceConfig
+      config?: any
     } & OperationOptions
   ): Promise<T['data']>
 
@@ -33,7 +32,7 @@ export default function getAllProductPathsOperation({
   }: {
     query?: string
     variables?: T['variables']
-    config?: BigcommerceConfig
+    config?: any
   } = {}): Promise<T['data']> {
     const config = commerce.getConfig(cfg)
     // RecursivePartial forces the method to check for every prop in the data, which is
