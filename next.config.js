@@ -5,29 +5,19 @@ const {
 } = require('./framework/commerce/config')
 
 const provider = commerce.provider || getProviderName()
-const isBC = provider === 'bigcommerce'
-const isShopify = provider === 'shopify'
-const isSaleor = provider === 'saleor'
-const isSwell = provider === 'swell'
 const isVendure = provider === 'vendure'
 
 module.exports = withCommerceConfig({
   commerce,
   i18n: {
-    locales: ['en-US', 'es'],
-    defaultLocale: 'en-US',
+    locales: ['cs-CZ'],
+    defaultLocale: 'cs-CZ',
   },
   rewrites() {
     return [
-      (isBC || isShopify || isSwell || isVendure || isSaleor) && {
+      isVendure && {
         source: '/checkout',
         destination: '/api/checkout',
-      },
-      // The logout is also an action so this route is not required, but it's also another way
-      // you can allow a logout!
-      isBC && {
-        source: '/logout',
-        destination: '/api/logout?redirect_to=/',
       },
       // For Vendure, rewrite the local api url to the remote (external) api url. This is required
       // to make the session cookies work.

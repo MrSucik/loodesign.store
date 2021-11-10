@@ -14,18 +14,11 @@ interface LOCALE_DATA {
 }
 
 const LOCALES_MAP: Record<string, LOCALE_DATA> = {
-  es: {
-    name: 'Español',
+  'cs-CZ': {
+    name: 'Czech',
     img: {
-      filename: 'flag-es-co.svg',
-      alt: 'Bandera Colombiana',
-    },
-  },
-  'en-US': {
-    name: 'English',
-    img: {
-      filename: 'flag-en-us.svg',
-      alt: 'US Flag',
+      filename: 'flag-cz.svg',
+      alt: 'Czech Flag',
     },
   },
 }
@@ -35,7 +28,7 @@ const I18nWidget: FC = () => {
   const {
     locale,
     locales,
-    defaultLocale = 'en-US',
+    defaultLocale = 'cs-CZ',
     asPath: currentPath,
   } = useRouter()
 
