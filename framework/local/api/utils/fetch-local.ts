@@ -20,7 +20,7 @@ const fetchGraphqlApi: (getConfig: () => LocalConfig) => GraphQLFetcher =
       }),
     })
 
-    const json = await res.json()
+    const json = await res.json() as any
     if (json.errors) {
       throw new FetcherError({
         errors: json.errors ?? [{ message: 'Failed to fetch for API' }],
