@@ -13,7 +13,6 @@ export default function MyApp({ Component, pageProps }: AppProps) {
   const Layout = (Component as any).Layout || Noop
 
   useEffect(() => document.body.classList?.remove('loading'), [])
-
   return (
     <>
       <Head />
