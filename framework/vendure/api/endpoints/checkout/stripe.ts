@@ -1,8 +1,9 @@
 import createStripe from 'stripe'
 
-const stripe = new createStripe(process.env.STRIPE_SECRET_KEY!, {
+export const stripe = new createStripe(process.env.STRIPE_SECRET_KEY!, {
   apiVersion: '2020-08-27',
 })
+
 
 export const createProductWithPrice = async (totalWithTax: number) => {
   const product = await stripe.products.create({

@@ -2,7 +2,7 @@ import { CommerceAPI, createEndpoint, GetAPISchema } from '@commerce/api'
 import { CheckoutSchema } from '@commerce/types/checkout'
 import checkoutEndpoint from '@commerce/api/endpoints/checkout'
 import { ActiveOrder, activeOrderQuery } from './activeOrder'
-import { createProductWithPrice, createStripeSession } from './stripe'
+import { createProductWithPrice, createStripeSession, stripe } from './stripe'
 
 const getCheckout: CheckoutEndpoint['handlers']['getCheckout'] = async ({
   req,
@@ -10,9 +10,17 @@ const getCheckout: CheckoutEndpoint['handlers']['getCheckout'] = async ({
   config,
 }) => {
   try {
-
-    console.log(req.headers, req.url);
-
+    const requestUrl = req.url!
+    console.log(requestUrl)
+    if (req.url!.includes('success')) {
+      const sessionId = new URLSearchParams('?' + requestUrl.split('?')[1]).get(
+        'session_id'
+      )
+      console.log(
+        'Success: ',
+        await stripe.checkout.sessions.retrieve(sessionId!)
+      )
+    }
 
     const { data } = await config.fetch<ActiveOrder>(
       activeOrderQuery,
@@ -24,8 +32,8 @@ const getCheckout: CheckoutEndpoint['handlers']['getCheckout'] = async ({
 
     const session = await createStripeSession(req.headers.host!, price)
 
-    console.log("Session ID: ", session.id);
-
+    console.log('Session ID: ', session.id)
+    console.log('Payment status: ', session.payment_status)
 
     res.redirect(session.url!)
   } catch (error) {
