@@ -73,7 +73,6 @@ export default function Cart() {
         ) : (
           <div className="px-4 sm:px-6 flex-1">
             <Text variant="pageHeading">Můj košík</Text>
-            <Text variant="sectionHeading">Zkontrolujte objednávku</Text>
             <ul className="py-6 space-y-6 sm:py-0 sm:space-y-0 sm:divide-y sm:divide-accent-2 border-b border-accent-2">
               {data!.lineItems.map((item: any) => (
                 <CartItem
@@ -122,10 +121,6 @@ export default function Cart() {
               <li className="flex justify-between py-1">
                 <span>Mezisoučet</span>
                 <span>{subTotal}</span>
-              </li>
-              <li className="flex justify-between py-1">
-                <span>Daně</span>
-                <span>Vypočteno u pokladny</span>
               </li>
               <li className="flex justify-between py-1">
                 <span>Odhadované poštovné</span>

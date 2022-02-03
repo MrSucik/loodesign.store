@@ -94,10 +94,6 @@ const CartSidebarView: FC = () => {
                 <span>{subTotal}</span>
               </li>
               <li className="flex justify-between py-1">
-                <span>Daně</span>
-                <span>Vypočítáno u pokladny</span>
-              </li>
-              <li className="flex justify-between py-1">
                 <span>Poštovné</span>
                 <span className="font-bold tracking-wide">ZDARMA</span>
               </li>
