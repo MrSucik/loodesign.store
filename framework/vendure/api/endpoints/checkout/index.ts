@@ -53,7 +53,7 @@ const getCheckout: CheckoutEndpoint['handlers']['getCheckout'] = async ({
 
     console.log(session, req.headers)
 
-    res.send(response)
+    res.redirect(session.url!)
   } catch (error) {
     console.error(error)
 
