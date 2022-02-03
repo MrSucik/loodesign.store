@@ -229,7 +229,7 @@ export default function Search({ categories, brands }: SearchPropsType) {
                             'block lg:inline-block px-4 py-2 lg:p-0 lg:my-2 lg:mx-4'
                           }
                         >
-                          All Designers
+                          Všechny Značky
                         </a>
                       </Link>
                     </li>
