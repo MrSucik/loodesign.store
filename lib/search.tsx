@@ -10,7 +10,6 @@ export function useSearchMeta(asPath: string) {
     // Only access asPath after hydration to avoid a server mismatch
     const path = asPath.split('?')[0]
     const parts = path.split('/')
-    console.log(parts)
 
     let c = parts[2]
     let b = parts[3]
