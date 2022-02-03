@@ -17,8 +17,8 @@ import rangeMap from '@lib/range-map'
 const SORT = {
   'trending-desc': 'Trending',
   'latest-desc': 'Latest arrivals',
-  'price-asc': 'Price: Low to high',
-  'price-desc': 'Price: High to low',
+  'price-asc': 'Cena: Od nejnižší',
+  'price-desc': 'Cena: Od nejvyšší',
 }
 
 import {
@@ -178,8 +178,8 @@ export default function Search({ categories, brands }: SearchPropsType) {
                   aria-expanded="true"
                 >
                   {activeBrand?.name
-                    ? `Design: ${activeBrand?.name}`
-                    : 'All Designs'}
+                    ? `Značka: ${activeBrand?.name}`
+                    : 'Všechny Značky'}
                   <svg
                     className="-mr-1 ml-2 h-5 w-5"
                     xmlns="http://www.w3.org/2000/svg"
