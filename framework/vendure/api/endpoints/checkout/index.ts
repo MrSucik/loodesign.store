@@ -35,7 +35,7 @@ const getCheckout: CheckoutEndpoint['handlers']['getCheckout'] = async ({
       unit_amount: 2000,
       currency: 'czk',
     })
-    const rootUrl = 'https://loodesign-mrsucik.vercel.app/checkout'
+    const rootUrl = 'https://loodesign-mrsucik.vercel.app'
     // Create Checkout Sessions from body params.
     const session = await stripe.checkout.sessions.create({
       line_items: [
