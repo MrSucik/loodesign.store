@@ -39,7 +39,7 @@ const ProductView: FC<ProductViewProps> = ({ product, relatedProducts }) => {
                     <Image
                       className={s.img}
                       src={image.url!}
-                      alt={image.alt || 'Product Image'}
+                      alt={image.alt || 'Obrázek Produktu'}
                       width={600}
                       height={600}
                       priority={i === 0}
@@ -66,7 +66,7 @@ const ProductView: FC<ProductViewProps> = ({ product, relatedProducts }) => {
         </div>
         <hr className="mt-7 border-accent-2" />
         <section className="py-12 px-6 mb-10">
-          <Text variant="sectionHeading">Related Products</Text>
+          <Text variant="sectionHeading">Další produkty</Text>
           <div className={s.relatedProductsGrid}>
             {relatedProducts.map((p) => (
               <div
