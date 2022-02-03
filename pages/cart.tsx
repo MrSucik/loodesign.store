@@ -120,7 +120,7 @@ export default function Cart() {
           <div className="border-t border-accent-2">
             <ul className="py-3">
               <li className="flex justify-between py-1">
-                <span>Součet</span>
+                <span>Mezisoučet</span>
                 <span>{subTotal}</span>
               </li>
               <li className="flex justify-between py-1">

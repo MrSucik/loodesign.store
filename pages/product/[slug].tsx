@@ -34,7 +34,7 @@ export async function getStaticProps({
   const { products: relatedProducts } = await allProductsPromise
 
   if (!product) {
-    throw new Error(`Product with slug '${params!.slug}' not found`)
+    throw new Error(`Produkt s kódem '${params!.slug}' nenalezen`)
   }
 
   return {
@@ -72,7 +72,7 @@ export default function Slug({
   const router = useRouter()
 
   return router.isFallback ? (
-    <h1>Loading...</h1>
+    <h1>Načítání...</h1>
   ) : (
     <ProductView product={product} relatedProducts={relatedProducts} />
   )
