@@ -54,7 +54,7 @@ const ProductSidebar: FC<ProductSidebarProps> = ({ product, className }) => {
       <div>
         {process.env.COMMERCE_CART_ENABLED && (
           <Button
-            aria-label="Add to Cart"
+            aria-label="Přidat do košíku"
             type="button"
             className={s.button}
             onClick={addToCart}
@@ -62,8 +62,8 @@ const ProductSidebar: FC<ProductSidebarProps> = ({ product, className }) => {
             disabled={variant?.availableForSale === false}
           >
             {variant?.availableForSale === false
-              ? 'Not Available'
-              : 'Add To Cart'}
+              ? 'Není k dispozici'
+              : 'Přidat do košíku'}
           </Button>
         )}
       </div>
