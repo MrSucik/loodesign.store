@@ -279,10 +279,10 @@ export default function Search({ categories, brands }: SearchPropsType) {
                       hidden: !data.found,
                     })}
                   >
-                    Showing {data.products.length} results{' '}
+                    Zobrazeno {data.products.length} produktů{' '}
                     {q && (
                       <>
-                        for "<strong>{q}</strong>"
+                        pro "<strong>{q}</strong>"
                       </>
                     )}
                   </span>
@@ -303,10 +303,10 @@ export default function Search({ categories, brands }: SearchPropsType) {
                 </>
               ) : q ? (
                 <>
-                  Searching for: "<strong>{q}</strong>"
+                  Hledání: "<strong>{q}</strong>"
                 </>
               ) : (
-                <>Searching...</>
+                <>Hledání...</>
               )}
             </div>
           )}
@@ -392,7 +392,7 @@ export default function Search({ categories, brands }: SearchPropsType) {
                             'block lg:inline-block px-4 py-2 lg:p-0 lg:my-2 lg:mx-4'
                           }
                         >
-                          Relevance
+                          Seřadit
                         </a>
                       </Link>
                     </li>
