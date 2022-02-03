@@ -80,8 +80,8 @@ export default function Search({ categories, brands }: SearchPropsType) {
                   aria-expanded="true"
                 >
                   {activeCategory?.name
-                    ? `Category: ${activeCategory?.name}`
-                    : 'All Categories'}
+                    ? `Kategorie: ${activeCategory?.name}`
+                    : 'Všechny Kategorie'}
                   <svg
                     className="-mr-1 ml-2 h-5 w-5"
                     xmlns="http://www.w3.org/2000/svg"
@@ -128,7 +128,7 @@ export default function Search({ categories, brands }: SearchPropsType) {
                             'block lg:inline-block px-4 py-2 lg:p-0 lg:my-2 lg:mx-4'
                           }
                         >
-                          All Categories
+                          Všechny Kategorie
                         </a>
                       </Link>
                     </li>
@@ -294,12 +294,10 @@ export default function Search({ categories, brands }: SearchPropsType) {
                   >
                     {q ? (
                       <>
-                        There are no products that match "<strong>{q}</strong>"
+                        Žádné produkty nenalezeny v "<strong>{q}</strong>"
                       </>
                     ) : (
-                      <>
-                        There are no products that match the selected category.
-                      </>
+                      <>V této kategorii nejsou žádné produkty.</>
                     )}
                   </span>
                 </>
