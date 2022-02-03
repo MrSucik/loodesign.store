@@ -47,9 +47,11 @@ const getCheckout: CheckoutEndpoint['handlers']['getCheckout'] = async ({
       ],
       payment_method_types: ['card'],
       mode: 'payment',
-      success_url: `${req.headers.origin}/?success=true&session_id={CHECKOUT_SESSION_ID}`,
-      cancel_url: `${req.headers.origin}/?canceled=true`,
+      success_url: `/?success=true&session_id={CHECKOUT_SESSION_ID}`,
+      cancel_url: `/?canceled=true`,
     })
+
+    console.log(session, req.headers)
 
     res.send(response)
   } catch (error) {
