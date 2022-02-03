@@ -32,7 +32,7 @@ const UserNav: FC<Props> = ({ className }) => {
               className={s.item}
               variant="naked"
               onClick={toggleSidebar}
-              aria-label="Cart"
+              aria-label="Košík"
             >
               <Bag />
               {itemsCount > 0 && (
@@ -44,7 +44,7 @@ const UserNav: FC<Props> = ({ className }) => {
         {process.env.COMMERCE_WISHLIST_ENABLED && (
           <li className={s.item}>
             <Link href="/wishlist">
-              <a onClick={closeSidebarIfPresent} aria-label="Wishlist">
+              <a onClick={closeSidebarIfPresent} aria-label="Seznam přání">
                 <Heart />
               </a>
             </Link>

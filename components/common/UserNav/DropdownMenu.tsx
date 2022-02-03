@@ -22,15 +22,15 @@ interface DropdownMenuProps {
 
 const LINKS = [
   {
-    name: 'My Orders',
+    name: 'Moje Objednávky',
     href: '/orders',
   },
   {
-    name: 'My Profile',
+    name: 'Můj Profil',
     href: '/profile',
   },
   {
-    name: 'My Cart',
+    name: 'Můj Košík',
     href: '/cart',
   },
 ]
@@ -112,7 +112,7 @@ const DropdownMenu: FC<DropdownMenuProps> = ({ open = false }) => {
                 className={cn(s.link, 'border-t border-accent-2 mt-4')}
                 onClick={() => logout()}
               >
-                Logout
+                Odhlásit se
               </a>
             </li>
           </ul>
