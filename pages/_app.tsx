@@ -13,6 +13,27 @@ export default function MyApp({ Component, pageProps }: AppProps) {
   const Layout = (Component as any).Layout || Noop
 
   useEffect(() => document.body.classList?.remove('loading'), [])
+
+  useEffect(() => {
+    const script1 = document.createElement('script')
+    const script2 = document.createElement('script')
+
+    script2.innerHTML =
+      'var sc_project=11426063;  var sc_invisible=1; var sc_security="9cf59078";'
+    script2.async = true
+
+    script1.src = 'https://www.statcounter.com/counter/counter.js'
+    script1.async = true
+
+    document.body.appendChild(script1)
+    document.body.appendChild(script2)
+
+    return () => {
+      document.body.removeChild(script1)
+      document.body.removeChild(script2)
+    }
+  }, [])
+
   return (
     <>
       <Head />
