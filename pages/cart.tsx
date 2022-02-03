@@ -6,7 +6,7 @@ import { Layout } from '@components/common'
 import { Button, Text } from '@components/ui'
 import { Bag, Cross, Check, MapPin, CreditCard } from '@components/icons'
 import { CartItem } from '@components/cart'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 
 export async function getStaticProps({
   preview,
@@ -24,12 +24,18 @@ export async function getStaticProps({
 }
 
 export default function Cart() {
+  const [checkoutState, setCheckoutState] = useState<'' | 'success' | 'error'>(
+    ''
+  )
   useEffect(() => {
-    console.log(window.location.search)
+    const query = new URLSearchParams(window.location.search)
+    setCheckoutState(
+      query.get('success') ? 'success' : query.get('canceled') ? 'error' : ''
+    )
   }, [])
 
-  const error = null
-  const success = null
+  const error = checkoutState === 'error'
+  const success = checkoutState === 'success'
   const { data, isLoading, isEmpty } = useCart()
 
   const { price: subTotal } = usePrice(
