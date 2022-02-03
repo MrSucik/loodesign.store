@@ -9,6 +9,7 @@ const checkoutEndpoint: GetAPISchema<
   CheckoutSchema
 >['endpoint']['handler'] = async (ctx) => {
   const { req, res, handlers, config } = ctx
+  console.log('Checkout endpoint proc: ', req.method, req.url)
 
   if (
     !isAllowedOperation(req, res, {
@@ -29,7 +30,7 @@ const checkoutEndpoint: GetAPISchema<
       return await handlers['getCheckout']({ ...ctx, body })
     }
 
-    // Create checkout
+    // Submit checkout
     if (req.method === 'POST' && handlers['submitCheckout']) {
       const body = { ...req.body, cartId }
       return await handlers['submitCheckout']({ ...ctx, body })
