@@ -1,10 +1,6 @@
-import { NextApiHandler } from 'next'
 import { CommerceAPI, createEndpoint, GetAPISchema } from '@commerce/api'
 import { CheckoutSchema } from '@commerce/types/checkout'
 import checkoutEndpoint from '@commerce/api/endpoints/checkout'
-import commerce from '@lib/api/commerce'
-import { getCommerceApi } from '@framework/api'
-import { Headers } from 'node-fetch'
 import createStripe from 'stripe'
 
 const activeOrderQuery = /* GraphQL */ `
