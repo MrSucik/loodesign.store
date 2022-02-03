@@ -95,7 +95,7 @@ const Layout: FC<Props> = ({
   pageProps: { categories = [], ...pageProps },
 }) => {
   const { acceptedCookies, onAcceptCookies } = useAcceptCookies()
-  const { locale = 'en-US' } = useRouter()
+  const { locale = 'cs-CZ' } = useRouter()
   const navBarlinks = categories.map((c) => ({
     label: c.name,
     href: `/search/${c.slug}`,
@@ -110,11 +110,11 @@ const Layout: FC<Props> = ({
         <ModalUI />
         <SidebarUI />
         <FeatureBar
-          title="This site uses cookies to improve your experience. By clicking, you agree to our Privacy Policy."
+          title="Tato stránka používá cookies pro zlepšení UX. Kliknutím souhlasíte s jejich použití."
           hide={acceptedCookies}
           action={
             <Button className="mx-5" onClick={() => onAcceptCookies()}>
-              Accept cookies
+              Souhlasím
             </Button>
           }
         />
