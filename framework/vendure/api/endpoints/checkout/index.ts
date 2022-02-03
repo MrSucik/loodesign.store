@@ -30,11 +30,30 @@ const getCheckout: CheckoutEndpoint['handlers']['getCheckout'] = async ({
   }
 }
 
+const submitCheckout: CheckoutEndpoint['handlers']['submitCheckout'] = async ({
+  req,
+  res,
+  config,
+}) => {
+  try {
+    console.log('Submit checkout', req)
+  } catch (error) {
+    console.error(error)
+
+    const message = 'An unexpected error ocurred'
+
+    res.status(500).json({ data: null, errors: [{ message }] })
+  }
+}
+
 export type CheckoutAPI = GetAPISchema<CommerceAPI, CheckoutSchema>
 
 export type CheckoutEndpoint = CheckoutAPI['endpoint']
 
-export const handlers: CheckoutEndpoint['handlers'] = { getCheckout }
+export const handlers: CheckoutEndpoint['handlers'] = {
+  getCheckout,
+  submitCheckout,
+}
 
 const checkoutApi = createEndpoint<CheckoutAPI>({
   handler: checkoutEndpoint,

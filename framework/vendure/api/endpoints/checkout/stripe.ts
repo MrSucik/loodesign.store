@@ -20,7 +20,7 @@ export const createStripeSession = async (
   returnHost: string,
   price: createStripe.Response<createStripe.Price>
 ) => {
-  const stripeReturnUrl = `https://${returnHost}/cart`
+  const stripeReturnUrl = `https://${returnHost}/checkout`
   const session = await stripe.checkout.sessions.create({
     line_items: [{ price: price.id, quantity: 1 }],
     payment_method_types: ['card'],
