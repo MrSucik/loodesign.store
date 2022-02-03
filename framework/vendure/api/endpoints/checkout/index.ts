@@ -24,6 +24,9 @@ const getCheckout: CheckoutEndpoint['handlers']['getCheckout'] = async ({
 
     const session = await createStripeSession(req.headers.host!, price)
 
+    console.log("Session ID: ", session.id);
+
+
     res.redirect(session.url!)
   } catch (error) {
     console.error(error)
