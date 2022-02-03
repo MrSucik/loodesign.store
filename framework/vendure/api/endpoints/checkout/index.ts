@@ -16,8 +16,10 @@ const stripe = new createStripe(process.env.STRIPE_SECRET_KEY!, {
 })
 
 interface ActiveOrder {
-  id: string
-  totalWithTax: number
+  activeOrder: {
+    id: string
+    totalWithTax: number
+  }
 }
 
 const getCheckout: CheckoutEndpoint['handlers']['getCheckout'] = async ({
@@ -40,7 +42,7 @@ const getCheckout: CheckoutEndpoint['handlers']['getCheckout'] = async ({
 
     const price = await stripe.prices.create({
       product: product.id,
-      unit_amount: data.totalWithTax,
+      unit_amount: data.activeOrder.totalWithTax,
       currency: 'czk',
     })
 
