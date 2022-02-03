@@ -39,6 +39,7 @@ export default function getSiteInfoOperation({
     }))
     const categories = arrayToTree(collections).children
     const brands = [] as any[]
+    console.log(categories, brands)
 
     return {
       categories: categories ?? [],
