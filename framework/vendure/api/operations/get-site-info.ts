@@ -38,7 +38,7 @@ export default function getSiteInfoOperation({
       productCount: i.productVariants.totalItems,
     }))
     const categories = arrayToTree(collections).children
-    const brands = [] as any[]
+    const brands = ['Rondo'] as any[]
 
     return {
       categories: categories ?? [],
