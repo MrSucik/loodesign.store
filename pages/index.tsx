@@ -1,7 +1,7 @@
 import commerce from '@lib/api/commerce'
 import { Layout } from '@components/common'
 import type { GetStaticPropsContext, InferGetStaticPropsType } from 'next'
-import { Product } from '@commerce/types/product'
+import HomePage from '@components/common/HomePage'
 
 export async function getStaticProps({
   preview,
@@ -13,8 +13,6 @@ export async function getStaticProps({
     variables: { first: 6 },
     config,
     preview,
-    // Saleor provider only
-    ...({ featured: true } as any),
   })
   const pagesPromise = commerce.getAllPages({ config, preview })
   const siteInfoPromise = commerce.getSiteInfo({ config, preview })
@@ -31,11 +29,6 @@ export async function getStaticProps({
     },
     revalidate: 60,
   }
-}
-
-const HomePage: React.FC<{ products: Product[] }> = ({ products }) => {
-  console.log(window.location.search, products)
-  return <>Main Content</>
 }
 
 export default function Home({
