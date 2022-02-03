@@ -35,7 +35,7 @@ const getCheckout: CheckoutEndpoint['handlers']['getCheckout'] = async ({
       unit_amount: 2000,
       currency: 'czk',
     })
-
+    const rootUrl = 'https://loodesign-mrsucik.vercel.app'
     // Create Checkout Sessions from body params.
     const session = await stripe.checkout.sessions.create({
       line_items: [
@@ -47,8 +47,8 @@ const getCheckout: CheckoutEndpoint['handlers']['getCheckout'] = async ({
       ],
       payment_method_types: ['card'],
       mode: 'payment',
-      success_url: `/?success=true&session_id={CHECKOUT_SESSION_ID}`,
-      cancel_url: `/?canceled=true`,
+      success_url: rootUrl + `/?success=true&session_id={CHECKOUT_SESSION_ID}`,
+      cancel_url: rootUrl + `/?canceled=true`,
     })
 
     console.log(session, req.headers)
