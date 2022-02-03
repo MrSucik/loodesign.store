@@ -24,12 +24,12 @@ export default function Profile() {
   const { data } = useCustomer()
   return (
     <Container>
-      <Text variant="pageHeading">My Profile</Text>
+      <Text variant="pageHeading">Můj profil</Text>
       {data && (
         <div className="grid lg:grid-cols-12">
           <div className="lg:col-span-8 pr-4">
             <div>
-              <Text variant="sectionHeading">Full Name</Text>
+              <Text variant="sectionHeading">Celé Jméno</Text>
               <span>
                 {data.firstName} {data.lastName}
               </span>
