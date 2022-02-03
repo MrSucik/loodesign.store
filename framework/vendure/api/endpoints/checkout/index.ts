@@ -10,6 +10,10 @@ const getCheckout: CheckoutEndpoint['handlers']['getCheckout'] = async ({
   config,
 }) => {
   try {
+
+    console.log(req.headers, req.url);
+
+
     const { data } = await config.fetch<ActiveOrder>(
       activeOrderQuery,
       {},
@@ -37,6 +41,7 @@ const submitCheckout: CheckoutEndpoint['handlers']['submitCheckout'] = async ({
 }) => {
   try {
     console.log('Submit checkout', req)
+    res.send({ data: null, errors: [{ message: 'success' }] })
   } catch (error) {
     console.error(error)
 
