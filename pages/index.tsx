@@ -33,7 +33,12 @@ export async function getStaticProps({
 export default function Home({
   products,
 }: InferGetStaticPropsType<typeof getStaticProps>) {
-  return <></>
+  const query = new URLSearchParams(window.location.search)
+  const success = query.get('success')
+  const canceled = query.get('canceled')
+  console.log(query, success, canceled)
+
+  return canceled ? <>Canceled</> : success ? <>Success</> : <>Main Page</>
 }
 
 Home.Layout = Layout
