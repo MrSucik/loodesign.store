@@ -17,8 +17,16 @@ export const activeOrderQuery = /* GraphQL */ `
 export const addPaymentToOrderQuery = /* GraphQL */ `
   mutation addPayment {
     addPaymentToOrder(
-      input: { method: "stripe-payment-method", metadata: { test: "asd" } }
+      input: { method: "stripe-payment-provider", metadata: { test: "asd" } }
     ) {
+      __typename
+    }
+  }
+`
+
+export const transistionOrderToStateQuery = /* GraphQL */ `
+  mutation transitionOrderToState {
+    transitionOrderToState(state: "ArrangingPayment") {
       __typename
     }
   }

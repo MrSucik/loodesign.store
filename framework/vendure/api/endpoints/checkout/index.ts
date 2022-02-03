@@ -5,6 +5,7 @@ import {
   ActiveOrder,
   activeOrderQuery,
   addPaymentToOrderQuery,
+  transistionOrderToStateQuery,
 } from './activeOrder'
 import { createProductWithPrice, createStripeSession, stripe } from './stripe'
 import { OPERATIONS } from '@commerce/api/operations'
@@ -16,7 +17,6 @@ const getCheckout: CheckoutEndpoint['handlers']['getCheckout'] = async ({
 }) => {
   try {
     const requestUrl = req.url!
-    console.log(requestUrl)
     if (req.url!.includes('success')) {
       const sessionId = new URLSearchParams('?' + requestUrl.split('?')[1]).get(
         'session_id'
@@ -38,7 +38,7 @@ const getCheckout: CheckoutEndpoint['handlers']['getCheckout'] = async ({
 
     // Mutate order to ArrangingPayment
     const mutationResponse = await config.fetch(
-      addPaymentToOrderQuery,
+      transistionOrderToStateQuery,
       {},
       fetchOptions
     )
