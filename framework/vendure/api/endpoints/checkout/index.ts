@@ -15,6 +15,11 @@ const stripe = new createStripe(process.env.STRIPE_SECRET_KEY!, {
   apiVersion: '2020-08-27',
 })
 
+interface ActiveOrder {
+  id: string
+  totalWithTax: number
+}
+
 const getCheckout: CheckoutEndpoint['handlers']['getCheckout'] = async ({
   req,
   res,
@@ -22,36 +27,35 @@ const getCheckout: CheckoutEndpoint['handlers']['getCheckout'] = async ({
 }) => {
   try {
     const requestCookie = req.headers.cookie as string
-    const response = await config.fetch(
+    const { data } = await config.fetch<ActiveOrder>(
       activeOrderQuery,
       {},
       { headers: { cookie: requestCookie } }
     )
 
-    const product = await stripe.products.create({ name: 'Test product' })
-    // Generate price
+    const product = await stripe.products.create({
+      name: 'Nákup na LOOdesign.store',
+    })
+
     const price = await stripe.prices.create({
       product: product.id,
-      unit_amount: 2000,
+      unit_amount: data.totalWithTax,
       currency: 'czk',
     })
-    const rootUrl = 'https://loodesign-mrsucik.vercel.app'
-    // Create Checkout Sessions from body params.
+
+    const stripeReturnUrl = 'https://loodesign-mrsucik.vercel.app'
     const session = await stripe.checkout.sessions.create({
       line_items: [
         {
-          // Provide the exact Price ID (e.g. pr_1234) of the product you want to sell
           price: price.id,
           quantity: 1,
         },
       ],
       payment_method_types: ['card'],
       mode: 'payment',
-      success_url: rootUrl + `/?success=true&session_id={CHECKOUT_SESSION_ID}`,
-      cancel_url: rootUrl + `/?canceled=true`,
+      success_url: `${stripeReturnUrl}/?success=true&session_id={CHECKOUT_SESSION_ID}`,
+      cancel_url: `${stripeReturnUrl}/?canceled=true`,
     })
-
-    console.log(response, session, req.headers)
 
     res.redirect(session.url!)
   } catch (error) {
