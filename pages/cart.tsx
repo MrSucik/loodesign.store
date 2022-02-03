@@ -23,6 +23,8 @@ export async function getStaticProps({
 }
 
 export default function Cart() {
+  console.log(window.location.search)
+
   const error = null
   const success = null
   const { data, isLoading, isEmpty } = useCart()

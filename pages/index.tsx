@@ -34,7 +34,7 @@ export async function getStaticProps({
 export default function Home({
   products,
 }: InferGetStaticPropsType<typeof getStaticProps>) {
-  return <HomePage products={products} />
+  return <></>
 }
 
 Home.Layout = Layout
