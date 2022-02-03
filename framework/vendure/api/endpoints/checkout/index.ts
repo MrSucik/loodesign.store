@@ -34,6 +34,7 @@ const getCheckout: CheckoutEndpoint['handlers']['getCheckout'] = async ({
       {},
       { headers: { cookie: requestCookie } }
     )
+    console.log(req.headers, req.rawHeaders, req.query, req.url)
 
     const product = await stripe.products.create({
       name: 'Nákup na LOOdesign.store',
