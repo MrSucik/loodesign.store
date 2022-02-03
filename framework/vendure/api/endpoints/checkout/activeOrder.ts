@@ -13,3 +13,13 @@ export const activeOrderQuery = /* GraphQL */ `
     }
   }
 `
+
+export const addPaymentToOrderQuery = /* GraphQL */ `
+  mutation addPayment {
+    addPaymentToOrder(
+      input: { method: "stripe-payment-method", metadata: { test: "asd" } }
+    ) {
+      __typename
+    }
+  }
+`

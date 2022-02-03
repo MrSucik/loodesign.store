@@ -1,8 +1,13 @@
 import { CommerceAPI, createEndpoint, GetAPISchema } from '@commerce/api'
 import { CheckoutSchema } from '@commerce/types/checkout'
 import checkoutEndpoint from '@commerce/api/endpoints/checkout'
-import { ActiveOrder, activeOrderQuery } from './activeOrder'
+import {
+  ActiveOrder,
+  activeOrderQuery,
+  addPaymentToOrderQuery,
+} from './activeOrder'
 import { createProductWithPrice, createStripeSession, stripe } from './stripe'
+import { OPERATIONS } from '@commerce/api/operations'
 
 const getCheckout: CheckoutEndpoint['handlers']['getCheckout'] = async ({
   req,
@@ -16,24 +21,29 @@ const getCheckout: CheckoutEndpoint['handlers']['getCheckout'] = async ({
       const sessionId = new URLSearchParams('?' + requestUrl.split('?')[1]).get(
         'session_id'
       )
-      console.log(
-        'Success: ',
-        await stripe.checkout.sessions.retrieve(sessionId!)
-      )
+      const successSession = await stripe.checkout.sessions.retrieve(sessionId!)
+      // Mutate order to PaymentSettled
+      res.send({ data: 'success boii' })
     }
-
+    const fetchOptions = { headers: { cookie: req.headers.cookie! } }
     const { data } = await config.fetch<ActiveOrder>(
       activeOrderQuery,
       {},
-      { headers: { cookie: req.headers.cookie! } }
+      fetchOptions
     )
 
     const price = await createProductWithPrice(data.activeOrder.totalWithTax)
 
     const session = await createStripeSession(req.headers.host!, price)
 
-    console.log('Session ID: ', session.id)
-    console.log('Payment status: ', session.payment_status)
+    // Mutate order to ArrangingPayment
+    const mutationResponse = await config.fetch(
+      addPaymentToOrderQuery,
+      {},
+      fetchOptions
+    )
+
+    console.log('Mutation response: ', mutationResponse.data)
 
     res.redirect(session.url!)
   } catch (error) {
