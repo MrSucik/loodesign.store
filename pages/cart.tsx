@@ -6,6 +6,7 @@ import { Layout } from '@components/common'
 import { Button, Text } from '@components/ui'
 import { Bag, Cross, Check, MapPin, CreditCard } from '@components/icons'
 import { CartItem } from '@components/cart'
+import { useEffect } from 'react'
 
 export async function getStaticProps({
   preview,
@@ -23,7 +24,9 @@ export async function getStaticProps({
 }
 
 export default function Cart() {
-  console.log(window.location.search)
+  useEffect(() => {
+    console.log(window.location.search)
+  }, [])
 
   const error = null
   const success = null
