@@ -31,7 +31,7 @@ const UserNav: FC<Props> = ({ className }) => {
             <Button
               className={s.item}
               variant="naked"
-              href="/cart"
+              onClick={toggleSidebar}
               aria-label="Košík"
             >
               <Bag />
