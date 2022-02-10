@@ -16,16 +16,29 @@ const getCheckout: CheckoutEndpoint['handlers']['getCheckout'] = async ({
   config,
 }) => {
   try {
+    const fetchOptions = { headers: { cookie: req.headers.cookie! } }
     const requestUrl = req.url!
     if (req.url!.includes('success')) {
       const sessionId = new URLSearchParams('?' + requestUrl.split('?')[1]).get(
         'session_id'
       )
       const successSession = await stripe.checkout.sessions.retrieve(sessionId!)
-      // Mutate order to PaymentSettled
+
+      // Set customer for order
+
+      // Set shipping address for order
+
+      // Mutate order to ArrangingPayment
+      const mutationResponse = await config.fetch(
+        transistionOrderToStateQuery,
+        {},
+        fetchOptions
+      )
+
+      // Add payment to order
+
       res.send({ data: 'success boii' })
     }
-    const fetchOptions = { headers: { cookie: req.headers.cookie! } }
     const { data } = await config.fetch<ActiveOrder>(
       activeOrderQuery,
       {},
@@ -35,15 +48,6 @@ const getCheckout: CheckoutEndpoint['handlers']['getCheckout'] = async ({
     const price = await createProductWithPrice(data.activeOrder.totalWithTax)
 
     const session = await createStripeSession(req.headers.host!, price)
-
-    // Mutate order to ArrangingPayment
-    const mutationResponse = await config.fetch(
-      transistionOrderToStateQuery,
-      {},
-      fetchOptions
-    )
-
-    console.log('Mutation response: ', mutationResponse.data)
 
     res.redirect(session.url!)
   } catch (error) {
