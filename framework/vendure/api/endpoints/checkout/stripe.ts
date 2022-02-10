@@ -4,7 +4,6 @@ export const stripe = new createStripe(process.env.STRIPE_SECRET_KEY!, {
   apiVersion: '2020-08-27',
 })
 
-
 export const createProductWithPrice = async (totalWithTax: number) => {
   const product = await stripe.products.create({
     name: 'Nákup na LOOdesign.store',
@@ -28,6 +27,7 @@ export const createStripeSession = async (
     mode: 'payment',
     success_url: `${stripeReturnUrl}/?success=true&session_id={CHECKOUT_SESSION_ID}`,
     cancel_url: `${stripeReturnUrl}/?canceled=true`,
+    shipping_address_collection: { allowed_countries: ['CZ'] },
   })
   return session
 }
