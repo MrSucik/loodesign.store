@@ -100,29 +100,14 @@ export default function Cart() {
         <div className="flex-shrink-0 px-4 py-24 sm:px-6">
           {process.env.COMMERCE_CUSTOMCHECKOUT_ENABLED && (
             <>
-              {/* Shipping Address */}
-              {/* Only available with customCheckout set to true - Meaning that the provider does offer checkout functionality. */}
-              <div className="rounded-md border border-accent-2 px-6 py-6 mb-4 text-center flex items-center justify-center cursor-pointer hover:border-accent-4">
-                <div className="mr-5">
-                  <MapPin />
-                </div>
-                <div className="text-sm text-center font-medium">
-                  <span className="uppercase">+ Přidat doručovací adresu</span>
-                  {/* <span>
-                    1046 Kearny Street.<br/>
-                    San Franssisco, California
-                  </span> */}
-                </div>
-              </div>
-              {/* Payment Method */}
-              {/* Only available with customCheckout set to true - Meaning that the provider does offer checkout functionality. */}
               <div className="rounded-md border border-accent-2 px-6 py-6 mb-4 text-center flex items-center justify-center cursor-pointer hover:border-accent-4">
                 <div className="mr-5">
                   <CreditCard />
                 </div>
                 <div className="text-sm text-center font-medium">
-                  <span className="uppercase">+ Přidat platební metodu</span>
-                  {/* <span>VISA #### #### #### 2345</span> */}
+                  <span className="uppercase">
+                    Platební metoda: Platební karta
+                  </span>
                 </div>
               </div>
             </>
@@ -134,7 +119,7 @@ export default function Cart() {
                 <span>{subTotal}</span>
               </li>
               <li className="flex justify-between py-1">
-                <span>Odhadované poštovné</span>
+                <span>Poštovné</span>
                 <span className="font-bold tracking-wide">ZDARMA</span>
               </li>
             </ul>
