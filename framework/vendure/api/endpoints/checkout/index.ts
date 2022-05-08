@@ -5,10 +5,11 @@ import {
   ActiveOrder,
   activeOrderQuery,
   addPaymentToOrderQuery,
-  transistionOrderToStateQuery,
-} from './activeOrder'
+  setCustomerForOrderQuery,
+  setShippingAddressForOrderQuery,
+  setOrderToArrangingPaymentQuery,
+} from './queries'
 import { createProductWithPrice, createStripeSession, stripe } from './stripe'
-import { OPERATIONS } from '@commerce/api/operations'
 
 const getCheckout: CheckoutEndpoint['handlers']['getCheckout'] = async ({
   req,
@@ -24,21 +25,29 @@ const getCheckout: CheckoutEndpoint['handlers']['getCheckout'] = async ({
       )
       const successSession = await stripe.checkout.sessions.retrieve(sessionId!)
 
+      console.log(successSession)
+
       // Set customer for order
+      // const { data, res: resp } = await config.fetch(
+      //   setCustomerForOrderQuery,
+      //   {},
+      //   fetchOptions
+      // )
+      // console.log(data, resp)
 
-      // Set shipping address for order
+      // // Set shipping address for order
+      // await config.fetch(setShippingAddressForOrderQuery, {}, fetchOptions)
 
-      // Mutate order to ArrangingPayment
-      const mutationResponse = await config.fetch(
-        transistionOrderToStateQuery,
-        {},
-        fetchOptions
-      )
+      // // Mutate order to ArrangingPayment
+      // await config.fetch(setOrderToArrangingPaymentQuery, {}, fetchOptions)
 
-      // Add payment to order
+      // // Add payment to order
+      await config.fetch(addPaymentToOrderQuery, {}, fetchOptions)
 
       res.send({ data: 'success boii' })
+      return
     }
+
     const { data } = await config.fetch<ActiveOrder>(
       activeOrderQuery,
       {},
