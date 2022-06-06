@@ -20,6 +20,12 @@ const getCheckout: CheckoutEndpoint['handlers']['getCheckout'] = async ({
       )
       const successSession = await stripe.checkout.sessions.retrieve(sessionId!)
 
+      console.log(successSession)
+
+      if (successSession.payment_status !== 'paid') {
+        throw 'unpaid order'
+      }
+
       const { processPaidOrder } = new CheckoutHandler(
         config,
         successSession,
