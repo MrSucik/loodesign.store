@@ -24,28 +24,52 @@ const getCheckout: CheckoutEndpoint['handlers']['getCheckout'] = async ({
         'session_id'
       )
       const successSession = await stripe.checkout.sessions.retrieve(sessionId!)
-
       console.log(successSession)
 
+      const fullName = successSession.shipping?.name
+      const firstName = fullName?.split(' ')[0]
+      const lastName = fullName?.split(' ')[1]
+
       // Set customer for order
-      const { data, res: resp } = await config.fetch(
-        setCustomerForOrderQuery,
-        {},
-        fetchOptions
-      )
-      console.log(data, resp)
-
-      // // Set shipping address for order
       console.log(
-        await config.fetch(setShippingAddressForOrderQuery, {}, fetchOptions)
+        await config.fetch(
+          setCustomerForOrderQuery,
+          {
+            variables: {
+              title: '',
+              firstName,
+              lastName,
+              emailAddress: successSession.customer_details?.email,
+              phoneNumber: successSession.customer_details?.phone,
+            },
+          },
+          fetchOptions
+        )
       )
 
-      // // Mutate order to ArrangingPayment
+      // Set shipping address for order
+      console.log(
+        await config.fetch(
+          setShippingAddressForOrderQuery,
+          {
+            variables: {
+              fullName,
+              streetLine1: successSession.shipping?.address?.line1,
+              phoneNumber: successSession.shipping?.phone,
+              city: successSession.shipping?.address?.city,
+              countryCode: successSession.shipping?.address?.country,
+            },
+          },
+          fetchOptions
+        )
+      )
+
+      // Mutate order to ArrangingPayment
       console.log(
         await config.fetch(setOrderToArrangingPaymentQuery, {}, fetchOptions)
       )
 
-      // // Add payment to order
+      // Add payment to order
       console.log(await config.fetch(addPaymentToOrderQuery, {}, fetchOptions))
 
       res.send({ data: 'success boii' })

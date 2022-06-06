@@ -33,13 +33,20 @@ export const setOrderToArrangingPaymentQuery = /* GraphQL */ `
 `
 
 export const setCustomerForOrderQuery = /* GraphQL */ `
-  mutation setCustomer {
+  mutation setCustomer(
+    $title: String
+    $firstName: String!
+    $lastName: String!
+    $emailAddress: String!
+    $phoneNumber: String
+  ) {
     setCustomerForOrder(
       input: {
-        firstName: "Daniel"
-        lastName: "Suchan"
-        emailAddress: "mr.sucik@gmail.com"
-        phoneNumber: "777783404"
+        title: $title
+        firstName: $firstName
+        lastName: $lastName
+        emailAddress: $emailAddress
+        phoneNumber: $phoneNumber
       }
     ) {
       __typename
@@ -48,14 +55,20 @@ export const setCustomerForOrderQuery = /* GraphQL */ `
 `
 
 export const setShippingAddressForOrderQuery = /* GraphQL */ `
-  mutation setShipping {
+  mutation setShipping(
+    $fullName: String
+    $streetLine1: String!
+    $phoneNumber: String
+    $city: String
+    $countryCode: String!
+  ) {
     setOrderShippingAddress(
       input: {
-        fullName: "Daniel Suchan"
-        streetLine1: "Proskovická 100"
-        phoneNumber: "777783404"
-        city: "Ostrava"
-        countryCode: "CZ"
+        fullName: $fullName
+        streetLine1: $streetLine1
+        phoneNumber: $phoneNumber
+        city: $city
+        countryCode: $countryCode
       }
     ) {
       __typename
