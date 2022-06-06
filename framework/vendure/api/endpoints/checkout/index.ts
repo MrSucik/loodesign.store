@@ -28,21 +28,25 @@ const getCheckout: CheckoutEndpoint['handlers']['getCheckout'] = async ({
       console.log(successSession)
 
       // Set customer for order
-      // const { data, res: resp } = await config.fetch(
-      //   setCustomerForOrderQuery,
-      //   {},
-      //   fetchOptions
-      // )
-      // console.log(data, resp)
+      const { data, res: resp } = await config.fetch(
+        setCustomerForOrderQuery,
+        {},
+        fetchOptions
+      )
+      console.log(data, resp)
 
       // // Set shipping address for order
-      // await config.fetch(setShippingAddressForOrderQuery, {}, fetchOptions)
+      console.log(
+        await config.fetch(setShippingAddressForOrderQuery, {}, fetchOptions)
+      )
 
       // // Mutate order to ArrangingPayment
-      // await config.fetch(setOrderToArrangingPaymentQuery, {}, fetchOptions)
+      console.log(
+        await config.fetch(setOrderToArrangingPaymentQuery, {}, fetchOptions)
+      )
 
       // // Add payment to order
-      await config.fetch(addPaymentToOrderQuery, {}, fetchOptions)
+      console.log(await config.fetch(addPaymentToOrderQuery, {}, fetchOptions))
 
       res.send({ data: 'success boii' })
       return
