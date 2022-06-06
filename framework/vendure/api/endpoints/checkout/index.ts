@@ -1,15 +1,9 @@
 import { CommerceAPI, createEndpoint, GetAPISchema } from '@commerce/api'
 import { CheckoutSchema } from '@commerce/types/checkout'
 import checkoutEndpoint from '@commerce/api/endpoints/checkout'
-import {
-  ActiveOrder,
-  activeOrderQuery,
-  addPaymentToOrderQuery,
-  setCustomerForOrderQuery,
-  setShippingAddressForOrderQuery,
-  setOrderToArrangingPaymentQuery,
-} from './queries'
+import { ActiveOrder, activeOrderQuery } from './queries'
 import { createProductWithPrice, createStripeSession, stripe } from './stripe'
+import { CheckoutHandler } from './CheckoutHandler'
 
 const getCheckout: CheckoutEndpoint['handlers']['getCheckout'] = async ({
   req,
@@ -19,74 +13,39 @@ const getCheckout: CheckoutEndpoint['handlers']['getCheckout'] = async ({
   try {
     const fetchOptions = { headers: { cookie: req.headers.cookie! } }
     const requestUrl = req.url!
-    if (req.url!.includes('success')) {
+    if (requestUrl!.includes('success')) {
+      // Success
       const sessionId = new URLSearchParams('?' + requestUrl.split('?')[1]).get(
         'session_id'
       )
       const successSession = await stripe.checkout.sessions.retrieve(sessionId!)
-      console.log(successSession)
 
-      const fullName = successSession.shipping?.name
-      const firstName = fullName?.split(' ')[0]
-      const lastName = fullName?.split(' ')[1]
-
-      // Set customer for order
-      console.log(
-        await config.fetch(
-          setCustomerForOrderQuery,
-          {
-            variables: {
-              title: '',
-              firstName,
-              lastName,
-              emailAddress: successSession.customer_details?.email,
-              phoneNumber: successSession.customer_details?.phone,
-            },
-          },
-          fetchOptions
-        )
+      const { processPaidOrder } = new CheckoutHandler(
+        config,
+        successSession,
+        fetchOptions
       )
 
-      // Set shipping address for order
-      console.log(
-        await config.fetch(
-          setShippingAddressForOrderQuery,
-          {
-            variables: {
-              fullName,
-              streetLine1: successSession.shipping?.address?.line1,
-              phoneNumber: successSession.shipping?.phone,
-              city: successSession.shipping?.address?.city,
-              countryCode: successSession.shipping?.address?.country,
-            },
-          },
-          fetchOptions
-        )
+      await processPaidOrder()
+
+      return res.send({ data: 'success boii' })
+    } else if (requestUrl!.includes('cancel')) {
+      // Cancel
+      return res.send({ data: 'canceled boii' })
+    } else {
+      // Initiate
+      const { data } = await config.fetch<ActiveOrder>(
+        activeOrderQuery,
+        {},
+        fetchOptions
       )
 
-      // Mutate order to ArrangingPayment
-      console.log(
-        await config.fetch(setOrderToArrangingPaymentQuery, {}, fetchOptions)
-      )
+      const price = await createProductWithPrice(data.activeOrder.totalWithTax)
 
-      // Add payment to order
-      console.log(await config.fetch(addPaymentToOrderQuery, {}, fetchOptions))
+      const session = await createStripeSession(req.headers.host!, price)
 
-      res.send({ data: 'success boii' })
-      return
+      res.redirect(session.url!)
     }
-
-    const { data } = await config.fetch<ActiveOrder>(
-      activeOrderQuery,
-      {},
-      fetchOptions
-    )
-
-    const price = await createProductWithPrice(data.activeOrder.totalWithTax)
-
-    const session = await createStripeSession(req.headers.host!, price)
-
-    res.redirect(session.url!)
   } catch (error) {
     console.error(error)
 
