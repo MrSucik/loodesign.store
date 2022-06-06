@@ -33,11 +33,10 @@ const getCheckout: CheckoutEndpoint['handlers']['getCheckout'] = async ({
       )
 
       await processPaidOrder()
-
-      return res.send({ data: 'success boii' })
+      return void res.redirect('/?success=true')
     } else if (requestUrl!.includes('cancel')) {
       // Cancel
-      return res.send({ data: 'canceled boii' })
+      return void res.redirect('/?canceled=true')
     } else {
       // Initiate
       const { data } = await config.fetch<ActiveOrder>(

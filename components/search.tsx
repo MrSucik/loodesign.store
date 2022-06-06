@@ -1,13 +1,13 @@
 import cn from 'classnames'
 import type { SearchPropsType } from '@lib/search-props'
 import Link from 'next/link'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 
 import { Layout } from '@components/common'
 import { ProductCard } from '@components/product'
 import type { Product } from '@commerce/types/product'
-import { Container, Skeleton } from '@components/ui'
+import { Container, Skeleton, useUI } from '@components/ui'
 
 import useSearch from '@framework/product/use-search'
 
@@ -24,6 +24,19 @@ import { filterQuery, getCategoryPath, useSearchMeta } from '@lib/search'
 export default function Search({ categories, brands }: SearchPropsType) {
   const [activeFilter, setActiveFilter] = useState('')
   const [toggleFilter, setToggleFilter] = useState(false)
+
+  const { openSidebar } = useUI()
+  useEffect(() => {
+    const query = new URLSearchParams(window.location.search)
+    const state = query.get('success')
+      ? 'success'
+      : query.get('canceled')
+      ? 'error'
+      : ''
+    if (state) {
+      openSidebar()
+    }
+  }, [openSidebar])
 
   const router = useRouter()
   const { asPath, locale } = router

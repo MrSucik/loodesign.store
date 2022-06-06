@@ -1,6 +1,6 @@
 import cn from 'classnames'
 import Link from 'next/link'
-import { FC } from 'react'
+import { FC, useEffect, useState } from 'react'
 import s from './CartSidebarView.module.css'
 import CartItem from '../CartItem'
 import { Button, Text } from '@components/ui'
@@ -11,7 +11,22 @@ import usePrice from '@framework/product/use-price'
 import SidebarLayout from '@components/common/SidebarLayout'
 
 const CartSidebarView: FC = () => {
-  const { closeSidebar, setSidebarView } = useUI()
+  const [checkoutState, setCheckoutState] = useState<'' | 'success' | 'error'>(
+    ''
+  )
+  const { closeSidebar } = useUI()
+  useEffect(() => {
+    const query = new URLSearchParams(window.location.search)
+    const state = query.get('success')
+      ? 'success'
+      : query.get('canceled')
+      ? 'error'
+      : ''
+    setCheckoutState(state)
+  }, [])
+
+  const error = checkoutState === 'error'
+  const success = checkoutState === 'success'
   const { data, isLoading, isEmpty } = useCart()
 
   const { price: subTotal } = usePrice(
@@ -27,10 +42,6 @@ const CartSidebarView: FC = () => {
     }
   )
   const handleClose = () => closeSidebar()
-  const goToCheckout = () => setSidebarView('CHECKOUT_VIEW')
-
-  const error = null
-  const success = null
 
   return (
     <SidebarLayout
@@ -56,6 +67,13 @@ const CartSidebarView: FC = () => {
           <h2 className="pt-6 text-xl font-light text-center">
             Nepodařilo se zprocesovat Vaši objednávku
           </h2>
+          <Link href="/">
+            <a>
+              <Text variant="sectionHeading" onClick={handleClose}>
+                Zpět
+              </Text>
+            </a>
+          </Link>
         </div>
       ) : success ? (
         <div className="flex-1 px-4 flex flex-col justify-center items-center">
@@ -65,17 +83,18 @@ const CartSidebarView: FC = () => {
           <h2 className="pt-6 text-xl font-light text-center">
             Děkujeme za Vaši objednávku
           </h2>
+          <Link href="/">
+            <a>
+              <Text variant="sectionHeading" onClick={handleClose}>
+                Zpět
+              </Text>
+            </a>
+          </Link>
         </div>
       ) : (
         <>
           <div className="px-4 sm:px-6 flex-1">
-            <Link href="/cart">
-              <a>
-                <Text variant="sectionHeading" onClick={handleClose}>
-                  Váš košík
-                </Text>
-              </a>
-            </Link>
+            <Text variant="sectionHeading">Váš košík</Text>
             <ul className={s.lineItemsList}>
               {data!.lineItems.map((item: any) => (
                 <CartItem
