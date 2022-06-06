@@ -78,7 +78,7 @@ export default function Cart() {
               <Check />
             </span>
             <h2 className="pt-6 text-xl font-light text-center">
-              Děkujeme za vaši objednávku
+              Děkujeme za Vaši objednávku
             </h2>
           </div>
         ) : (
