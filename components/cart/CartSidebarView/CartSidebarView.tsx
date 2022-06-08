@@ -50,16 +50,7 @@ const CartSidebarView: FC = () => {
       })}
       handleClose={handleClose}
     >
-      {isLoading || isEmpty ? (
-        <div className="flex-1 px-4 flex flex-col justify-center items-center">
-          <span className="border border-dashed border-primary rounded-full flex items-center justify-center w-16 h-16 p-12 bg-secondary text-secondary">
-            <Bag className="absolute" />
-          </span>
-          <h2 className="pt-6 text-2xl font-bold tracking-wide text-center">
-            Váš košík je prázdný
-          </h2>
-        </div>
-      ) : error ? (
+      {error ? (
         <div className="flex-1 px-4 flex flex-col justify-center items-center">
           <span className="border border-white rounded-full flex items-center justify-center w-16 h-16">
             <Cross width={24} height={24} />
@@ -90,6 +81,15 @@ const CartSidebarView: FC = () => {
               </Text>
             </a>
           </Link>
+        </div>
+      ) : isLoading || isEmpty ? (
+        <div className="flex-1 px-4 flex flex-col justify-center items-center">
+          <span className="border border-dashed border-primary rounded-full flex items-center justify-center w-16 h-16 p-12 bg-secondary text-secondary">
+            <Bag className="absolute" />
+          </span>
+          <h2 className="pt-6 text-2xl font-bold tracking-wide text-center">
+            Váš košík je prázdný
+          </h2>
         </div>
       ) : (
         <>

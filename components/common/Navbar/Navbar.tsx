@@ -24,7 +24,7 @@ const Navbar: FC<NavbarProps> = ({ links }) => (
             </a>
           </Link>
           <nav className={s.navMenu}>
-            <Link href="/search">
+            <Link href="/">
               <a className={s.link}>Všechny produkty</a>
             </Link>
             {links?.map((l) => (
