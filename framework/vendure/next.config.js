@@ -8,6 +8,7 @@ module.exports = {
       'demo.vendure.io',
       'loodesign-vendure.herokuapp.com',
       'loodesign-mrsucik.vercel.app',
+      'loodesignstore.up.railway.app',
     ],
   },
 }
