@@ -35,8 +35,8 @@ export class CheckoutHandler {
   };
 
   private setCustomer = async () => {
-    const firstName = this.fullName?.split(' ')[0];
-    const lastName = this.fullName?.split(' ')[1];
+    const firstName = this.fullName?.split(' ')[0] ?? "No first name";
+    const lastName = this.fullName?.split(' ')[1] ?? "No last name";
     console.log(
       await this.config.fetch(
         setCustomerForOrderQuery,
