@@ -14,6 +14,7 @@ export const getProductQuery = /* GraphQL */ `
         id
         priceWithTax
         currencyCode
+        stockLevel
         options {
           id
           name
