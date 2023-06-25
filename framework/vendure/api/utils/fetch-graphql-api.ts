@@ -30,6 +30,8 @@ const fetchGraphqlApi: GraphQLFetcher = async (
     })
   }
 
+  // console.dir(json.data, { depth: null })
+
   return { data: json.data, res }
 }
 
