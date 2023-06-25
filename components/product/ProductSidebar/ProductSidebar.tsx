@@ -26,8 +26,15 @@ const ProductSidebar: FC<ProductSidebarProps> = ({ product, className }) => {
   }, [product])
 
   const variant = getProductVariant(product, selectedOptions)
+  const isOutOfStock = variant?.stockLevel === 'IN_STOCK' ? false : true
+
+  console.log('product', product)
+
   const addToCart = async () => {
     setLoading(true)
+    if (isOutOfStock) {
+      return
+    }
     try {
       await addItem({
         productId: String(product.id),
@@ -59,11 +66,9 @@ const ProductSidebar: FC<ProductSidebarProps> = ({ product, className }) => {
             className={s.button}
             onClick={addToCart}
             loading={loading}
-            disabled={variant?.availableForSale === false}
+            disabled={isOutOfStock}
           >
-            {variant?.availableForSale === false
-              ? 'Není k dispozici'
-              : 'Přidat do košíku'}
+            {isOutOfStock ? 'Není k dispozici' : 'Přidat do košíku'}
           </Button>
         )}
       </div>
